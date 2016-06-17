@@ -17,13 +17,13 @@ pthread_once_t Singleton::_once = PTHREAD_ONCE_INIT;
 //线程安全
 Singleton* Singleton::getInstance()
 {
-	pthread_once(&_once, &Singleton::init);
+	pthread_once(&_once, &Singleton::init);  //pthread_once函数只能被调用一次，故里面的函数只能执行一次
 	return _pInstance;
 }
 
 void Singleton::init()
 {
-	::atexit(&Singleton::destroy);
+	::atexit(&Singleton::destroy);  //atexit里面的函数注册几次，就调用几次
 	if(_pInstance == NULL)
 	{
 		_pInstance = new Singleton;  //在类里面进行调用
